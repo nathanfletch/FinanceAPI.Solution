@@ -9,6 +9,6 @@ namespace FinanceAPI.Models
         {
         }
 
-        public DbSet<Placeholder> Placeholders { get; set; }
+        public DbSet<Country> Countries { get; set; }
     }
 }

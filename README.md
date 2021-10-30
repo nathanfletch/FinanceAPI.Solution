@@ -1,9 +1,7 @@
-# API
+# Finance API
 
+#### An api to provide financial data.
 
-#### An api 
-
-#### _By Nathan Fletcher_
 
 ## Technologies Used
 
@@ -28,7 +26,7 @@
   ```
   {
     "ConnectionStrings": {
-        "DefaultConnection": "Server=localhost;Port=3306;database=template;uid=root;pwd=[YOUR-PASSWORD-HERE];"
+        "DefaultConnection": "Server=localhost;Port=3306;database=finance_api;uid=root;pwd=[YOUR-PASSWORD-HERE];"
     }
   }
   ```
@@ -61,27 +59,36 @@ Base URL: `http://localhost:5000`
 ## HTTP Request Structure
 
 ```
-GET /api/placeholders
-GET /api/placeholders/load
-POST /api/placeholders
-GET /api/placeholders/{id}
-PUT /api/placeholders/{id}
-DELETE /api/placeholders/{id}
+GET /api/countries
+GET /api/countries/load
+GET /api/countries/{id}
 ```
+
+## GET /api/countries
+
+A user can get all countries and customize the list using the following parameters:
+
+| Parameter | region | Description | Example Query |
+| :---: | :---: | :---: | --- |
+| region | string | Get countries in the specified region. | api/countries/?region="europe" |
+| minGDP | double | Gets countries with a higher GDP than the specified GDP | api/countries/?minGDP=10000 |
+| maxGDP | double | Gets countries with a lower GDP than the specified date | api/countries/?maxGDP=20000 |
+| sortedBy | string | Sorts countries by the following keywords: "name", "GDP", "region", "population"  | api/countries/?sortedBy=GDP |
+
+### Example Query
+
+`http://localhost:5000/api/countries/?minGDP=20000&sorted=true`   
+
+<br>
 
 ## Known Issues
 * There are no known bugs at this time.
 * Please contact me if you find any bugs or have suggestions. 
 
 ## Future Plans
-* Add more query parameters and endpoints.
+* Add more models and tables.
 
 ## License
 
 _[MIT](https://opensource.org/licenses/MIT)_  
 
-Copyright (c) 2021 Nathan Fletcher 
-
-## Contact Information
-
-_Nathan Fletcher @ github.com/nathanfletch_  
