@@ -52,27 +52,24 @@ Check out Swagger's auto-generated documentation at `http://localhost:5000/swagg
 CORS is enabled only for these specific ports: `5000`, `5001`, `8080`, `8081`.
 This is to allow a front end app running on 8080 to call this api.
 
-## Endpoints
+## Base URL: `http://localhost:5000`
 
-Base URL: `http://localhost:5000`
+## Countries Data: /api/countries
+These endpoints will return data from this [CSV](https://www.kaggle.com/fernandol/countries-of-the-world)
+Only the following properties are parsed: Country name (Name), Region, Population, and GDP. 
 
-## HTTP Request Structure
 
-```
-GET /api/countries
-GET /api/countries/load
-GET /api/countries/{id}
-```
+`GET /api/countries/load` This must be called first to load the csv.
 
-## GET /api/countries
+`GET /api/countries/{id}` Returns a single country by id.
 
-A user can get all countries and customize the list using the following parameters:
+`GET /api/countries` Returns a list of countries with the following optional parameters:
 
 | Parameter | region | Description | Example Query |
 | :---: | :---: | :---: | --- |
-| region | string | Get countries in the specified region. | api/countries/?region="europe" |
-| minGDP | double | Gets countries with a higher GDP than the specified GDP | api/countries/?minGDP=10000 |
-| maxGDP | double | Gets countries with a lower GDP than the specified date | api/countries/?maxGDP=20000 |
+| region | string | Returns countries in the specified region. | api/countries/?region="europe" |
+| minGDP | double | Returns countries with a higher GDP than the specified GDP | api/countries/?minGDP=10000 |
+| maxGDP | double | Returns countries with a lower GDP than the specified date | api/countries/?maxGDP=20000 |
 | sortedBy | string | Sorts countries by the following keywords: "name", "GDP", "region", "population"  | api/countries/?sortedBy=GDP |
 
 ### Example Query
