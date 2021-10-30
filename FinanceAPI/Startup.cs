@@ -4,11 +4,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Template.Models;
+using FinanceAPI.Models;
 using Swashbuckle.AspNetCore;
 using Microsoft.OpenApi.Models;
 
-namespace Template
+namespace FinanceAPI
 {
 
     public class Startup
@@ -23,7 +23,7 @@ namespace Template
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<TemplateContext>(opt =>
+            services.AddDbContext<FinanceAPIContext>(opt =>
                 opt.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
             services.AddControllers();
             services.AddCors(options =>
@@ -41,7 +41,7 @@ namespace Template
             });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Template", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FinanceAPI", Version = "v1" });
             });
         }
 
@@ -51,7 +51,7 @@ namespace Template
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Template v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FinanceAPI v1"));
             }
 
             // app.UseHttpsRedirection();

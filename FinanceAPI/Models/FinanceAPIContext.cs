@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Template.Models
+namespace FinanceAPI.Models
 {
-    public class TemplateContext : DbContext
+    public class FinanceAPIContext : DbContext
     {
-        public TemplateContext(DbContextOptions<TemplateContext> options)
+        public FinanceAPIContext(DbContextOptions<FinanceAPIContext> options)
             : base(options)
         {
         }
