@@ -26,6 +26,12 @@ namespace FinanceAPI.Controllers
     [HttpGet("load")]
     public async Task<ActionResult<IEnumerable<Country>>> LoadCountries()
     {
+      var countries = await _db.Countries.ToListAsync();
+      if(countries.Count != 0)
+      {
+        return NoContent();
+      }
+
       using (var streamReader = new StreamReader("./Models/SeedData/countries.csv"))
       {
         using (var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture))
@@ -39,7 +45,7 @@ namespace FinanceAPI.Controllers
         }
       }
 
-      return await _db.Countries.ToListAsync();
+      return NoContent();
     }
 
     [HttpGet]
