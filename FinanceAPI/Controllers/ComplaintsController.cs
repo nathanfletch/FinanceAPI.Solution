@@ -16,9 +16,9 @@ namespace FinanceAPI.Controllers
     [ApiController]
     public class ComplaintsController : ControllerBase
     {
-        private readonly FinanceContext _context;
+        private readonly FinanceAPIContext _context;
 
-        public ComplaintsController(FinanceContext context)
+        public ComplaintsController(FinanceAPIContext context)
         {
             _context = context;
         }
@@ -31,3 +31,4 @@ namespace FinanceAPI.Controllers
         }
 
     }
+}
