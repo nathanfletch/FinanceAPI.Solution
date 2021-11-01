@@ -16,11 +16,6 @@ namespace FinanceAPI.Models
     public double GDP {get; set;}
     public double UnemplRate {get; set;}
     public double InflationRate {get; set;}
-    // public InfantMortality {get; set;}
-    // public Literacy {get; set;}
-    // public Phones {get; set;}
-    // public Birthrate {get; set;}
-    // public Deathrate {get; set;}
   }
 
   public sealed class EconomyMap: ClassMap<Economy>
