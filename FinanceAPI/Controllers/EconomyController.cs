@@ -14,20 +14,20 @@ namespace FinanceAPI.Controllers
 {
   [Route("api/[controller]")]
   [ApiController]
-  public class YearsController : ControllerBase
+  public class EconomyController : ControllerBase
   {
     private readonly FinanceAPIContext _db;
 
-    public YearsController(FinanceAPIContext db)
+    public EconomyController(FinanceAPIContext db)
     {
       _db = db;
     }
 
     [HttpGet("load")]
-    public async Task<ActionResult<IEnumerable<Year>>> LoadYears()
+    public async Task<ActionResult<IEnumerable<Economy>>> LoadEconomy()
     {
-      var years = await _db.Years.ToListAsync();
-      if(years.Count != 0)
+      var economy = await _db.Economy.ToListAsync();
+      if(economy.Count != 0)
       {
         return NoContent();
       }
@@ -36,11 +36,11 @@ namespace FinanceAPI.Controllers
       {
         using (var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture))
         {
-          csvReader.Context.RegisterClassMap<YearMap>();
+          csvReader.Context.RegisterClassMap<EconomyMap>();
           // csvReader.Configuration.MissingFieldFound = null;
-          var YearRecords = csvReader.GetRecords<Year>().ToList(); 
+          var EconomyRecords = csvReader.GetRecords<Economy>().ToList(); 
           
-          _db.Years.AddRange(YearRecords);
+          _db.Economy.AddRange(EconomyRecords);
           _db.SaveChanges();
         }
       }
@@ -49,40 +49,40 @@ namespace FinanceAPI.Controllers
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Year>>> GetYears(string year, int GDP, int unemployment, int inflation, string sortedBy)
+    public async Task<ActionResult<IEnumerable<Economy>>> GetEconomy(string year, int GDP, int unemployment, int inflation, string sortedBy)
     {
-      var query = _db.Years.AsQueryable();
+      var query = _db.Economy.AsQueryable();
 
       if(year != null)
       {
-        query = query.Where(Year => Year.Region == year);
+        query = query.Where(Economy => Economy.Year == year);
       }
-      if(minGDP != 0)
+      if(GDP != 0)
       {
-        query = query.Where(Year => Year.GDP == GDP);
+        query = query.Where(Economy => Economy.GDP == GDP);
       }
       // if(maxGDP != 0)
       // {
-      //   query = query.Where(Year => Year.GDP <= maxGDP);
+      //   query = query.Where(Economy => Economy.GDP <= maxGDP);
       // }
       // if(sortedBy != null)
       {
         switch(sortedBy)
         {
           case "GDP":
-            query = query.OrderByDescending(country => country.GDP);
+            query = query.OrderByDescending(economy => economy.GDP);
             break;
-          case "name":
-            query = query.OrderByDescending(country => country.Name);
+          case "interest":
+            query = query.OrderByDescending(economy => economy.InterestRate);
             break;
           case "year":
-            query = query.OrderByDescending(country => country.Year);
+            query = query.OrderByDescending(economy => economy.Year);
             break;
           case "unemployment":
-            query = query.OrderByDescending(country => country.UnemplRate);
+            query = query.OrderByDescending(economy => economy.UnemplRate);
             break;
           case "inflation":
-          query = query.OrderByDescending(country => country.InflationRate);
+          query = query.OrderByDescending(economy => economy.InflationRate);
           break;
           default: 
             break;
@@ -92,52 +92,52 @@ namespace FinanceAPI.Controllers
     }
     
     // [HttpPost]
-    // public async Task<ActionResult<Year>> Post([FromBody] Year Year)
+    // public async Task<ActionResult<Economy>> Post([FromBody] Economy Economy)
     // {
-    //   _db.Years.Add(Year);
+    //   _db.Economy.Add(Economy);
       
     //   await _db.SaveChangesAsync();
 
-    //   return CreatedAtAction("Post", new { id = Year.CountryId }, Year);
+    //   return CreatedAtAction("Post", new { id = Economy.CountryId }, Economy);
     // }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Year>> GetYear(int id)
+    public async Task<ActionResult<Economy>> GetEconomy(int id)
     {
-      var Year = await _db.Years.FindAsync(id);
+      var Economy = await _db.Economy.FindAsync(id);
 
-      if (Year == null)
+      if (Economy == null)
       {
         return NotFound();
       }
 
-      return Year;
+      return Economy;
     }
 
     // [HttpDelete("{id}")]
     // public async Task<IActionResult> DeleteCountry(int id)
     // {
-    //   var CountryToDelete = await _db.Years.FirstOrDefaultAsync(entry => entry.CountryId == id);
+    //   var CountryToDelete = await _db.Economy.FirstOrDefaultAsync(entry => entry.CountryId == id);
     //   if (CountryToDelete == null)
     //   {
     //     return NotFound();
     //   }
 
-    //   _db.Years.Remove(CountryToDelete);
+    //   _db.Economy.Remove(CountryToDelete);
     //   await _db.SaveChangesAsync();
 
     //   return NoContent();
     // }
 
     // [HttpPut("{id}")]
-    // public async Task<IActionResult> PutCountry(int id, [FromBody]Year Year)
+    // public async Task<IActionResult> PutCountry(int id, [FromBody]Economy Economy)
     // {
-    //   if (id != Year.CountryId)
+    //   if (id != Economy.CountryId)
     //   {
     //     return BadRequest();
     //   }
     
-    //   _db.Entry(Year).State = EntityState.Modified;
+    //   _db.Entry(Economy).State = EntityState.Modified;
     //   await _db.SaveChangesAsync();
 
     //   return NoContent();

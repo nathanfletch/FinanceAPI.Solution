@@ -1,4 +1,4 @@
-Year,Month,Day,Federal Funds Target Rate,Federal Funds Upper Target,Federal Funds Lower Target,Effective Federal Funds Rate,Real GDP (Percent Change),Unemployment Rate,Inflation Rate
+Year,Month,Day,Federal Funds Target Rate,Federal Funds Upper Target,Federal Funds Lower Target,InterestRate,GDP,UnemplRate,InflationRate
 1954,07,01,,,,0.8,4.6,5.8,
 1954,08,01,,,,1.22,,6,
 1954,09,01,,,,1.06,,6.1,

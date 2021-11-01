@@ -8,9 +8,10 @@ using System.Globalization;
 
 namespace FinanceAPI.Models
 {
-  public class Year
+  public class Economy
   {
     public int YearId { get; set; }
+    public string Year { get; set; }
     public string InterestRate { get; set; }
     public int GDP {get; set;}
     public int UnemplRate {get; set;}
@@ -22,18 +23,18 @@ namespace FinanceAPI.Models
     // public Deathrate {get; set;}
   }
 
-  public sealed class YearMap: ClassMap<Year>
+  public sealed class EconomyMap: ClassMap<Economy>
   {
-    public YearMap()
+    public EconomyMap()
     {
       AutoMap(CultureInfo.InvariantCulture);
-      //don't try to get Yearid from csv:
+      //don't try to get Economyid from csv:
       Map(m => m.YearId).Ignore();
       Map(m => m.GDP).Default(0);
       // Map(m => m.Population).Optional();
 
       //map column name to Prop name
-      // Map(m => m.YearId).Ignore();
+      // Map(m => m.EconomyId).Ignore();
     }
   }
 }
