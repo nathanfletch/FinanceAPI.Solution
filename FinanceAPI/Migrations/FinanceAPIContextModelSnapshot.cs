@@ -38,6 +38,35 @@ namespace FinanceAPI.Migrations
 
                     b.ToTable("Countries");
                 });
+
+            modelBuilder.Entity("FinanceAPI.Models.Patient", b =>
+                {
+                    b.Property<int>("PatientId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Bmi")
+                        .HasColumnType("double");
+
+                    b.Property<double>("Charges")
+                        .HasColumnType("double");
+
+                    b.Property<int>("Children")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Sex")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("Smoker")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("PatientId");
+
+                    b.ToTable("Patients");
+                });
 #pragma warning restore 612, 618
         }
     }

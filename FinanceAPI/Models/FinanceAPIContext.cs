@@ -10,5 +10,6 @@ namespace FinanceAPI.Models
         }
 
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Patient> Patients { get; set; }
     }
 }
