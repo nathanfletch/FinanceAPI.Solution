@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinanceAPI.Migrations
 {
     [DbContext(typeof(FinanceAPIContext))]
-    [Migration("20211101163131_Initial")]
+    [Migration("20211101211741_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,32 @@ namespace FinanceAPI.Migrations
                     b.HasKey("CountryId");
 
                     b.ToTable("Countries");
+                });
+
+            modelBuilder.Entity("FinanceAPI.Models.Economy", b =>
+                {
+                    b.Property<int>("EconomyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<double>("GDP")
+                        .HasColumnType("double");
+
+                    b.Property<double>("InflationRate")
+                        .HasColumnType("double");
+
+                    b.Property<double>("InterestRate")
+                        .HasColumnType("double");
+
+                    b.Property<double>("UnemplRate")
+                        .HasColumnType("double");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("EconomyId");
+
+                    b.ToTable("Economy");
                 });
 #pragma warning restore 612, 618
         }

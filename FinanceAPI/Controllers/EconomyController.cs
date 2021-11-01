@@ -55,11 +55,11 @@ namespace FinanceAPI.Controllers
 
       if(year != null)
       {
-        query = query.Where(Economy => Economy.Year == year);
+        query = query.Where(Economy => Economy.Year == Convert.ToInt32(year));
       }
       if(GDP != 0)
       {
-        query = query.Where(Economy => Economy.GDP == GDP);
+        query = query.Where(Economy => Economy.GDP == Convert.ToInt32(GDP));
       }
       // if(maxGDP != 0)
       // {

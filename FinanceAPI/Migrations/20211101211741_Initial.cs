@@ -22,12 +22,32 @@ namespace FinanceAPI.Migrations
                 {
                     table.PrimaryKey("PK_Countries", x => x.CountryId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Economy",
+                columns: table => new
+                {
+                    EconomyId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    InterestRate = table.Column<double>(type: "double", nullable: false),
+                    GDP = table.Column<double>(type: "double", nullable: false),
+                    UnemplRate = table.Column<double>(type: "double", nullable: false),
+                    InflationRate = table.Column<double>(type: "double", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Economy", x => x.EconomyId);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Countries");
+
+            migrationBuilder.DropTable(
+                name: "Economy");
         }
     }
 }
