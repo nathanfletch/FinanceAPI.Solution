@@ -2,14 +2,16 @@
 using FinanceAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FinanceAPI.Migrations
 {
     [DbContext(typeof(FinanceAPIContext))]
-    partial class FinanceAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20211102170356_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -18,9 +20,8 @@ namespace FinanceAPI.Migrations
 
             modelBuilder.Entity("FinanceAPI.Models.Complaint", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
                     b.Property<string>("Company")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -57,53 +58,6 @@ namespace FinanceAPI.Migrations
                     b.HasKey("CountryId");
 
                     b.ToTable("Countries");
-                });
-
-
-            modelBuilder.Entity("FinanceAPI.Models.Economy", b =>
-                {
-                    b.Property<int>("EconomyId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<double>("GDP")
-                        .HasColumnType("double");
-
-                    b.Property<double>("InflationRate")
-                        .HasColumnType("double");
-
-                    b.Property<double>("InterestRate")
-                        .HasColumnType("double");
-
-                    b.Property<double>("UnemplRate")
-                        .HasColumnType("double");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
-                    b.HasKey("EconomyId");
-
-                    b.ToTable("Economy");
-
-            modelBuilder.Entity("FinanceAPI.Models.Pitcher", b =>
-                {
-                    b.Property<int>("PitcherId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<int>("Pitches")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Salary")
-                        .HasColumnType("int");
-
-                    b.HasKey("PitcherId");
-
-                    b.ToTable("Pitchers");
-                    
                 });
 #pragma warning restore 612, 618
         }
