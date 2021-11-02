@@ -52,6 +52,11 @@ namespace FinanceAPI.Controllers
     public async Task<ActionResult<IEnumerable<Patient>>> GetPatients(int age, string sex, double bmi, int children, string smoker, double charges)
     {
       var query = _db.Patients.AsQueryable();
+
+      if (age != 0)
+      {
+        query = query.Where(patient => patient.Age == age);
+      }
       return await query.ToListAsync();
     }
 
