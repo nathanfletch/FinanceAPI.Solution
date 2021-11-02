@@ -32,8 +32,7 @@ namespace FinanceAPI.Controllers
         return NoContent();
       }
 
-      //using (var streamReader = new StreamReader("./Models/SeedData/allFactors.csv"))
-      using (var streamReader = new StreamReader("./Models/SeedData/testAllFactors.csv"))
+      using (var streamReader = new StreamReader("./Models/SeedData/allFactors.csv"))
       {
         using (var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture))
         {
@@ -61,40 +60,8 @@ namespace FinanceAPI.Controllers
       //sort just in case it wasn't working
       query = query.OrderBy(economy => economy.Year);
 
-      // if(sortedBy != null)
-      // {
-      //   switch(sortedBy)
-      //   {
-      //     case "GDP":
-      //       query = query.OrderByDescending(economy => economy.GDP);
-      //       break;
-      //     case "interest":
-      //       query = query.OrderByDescending(economy => economy.InterestRate);
-      //       break;  
-      //     case "unemployment":
-      //       query = query.OrderByDescending(economy => economy.UnemplRate);
-      //       break;
-      //     case "inflation":
-      //       query = query.OrderByDescending(economy => economy.InflationRate);
-      //       break;
-      //     case "year":
-      //       query = query.OrderByDescending(economy => economy.Year);
-      //     default: 
-      //       break;
-      //   }
-      //}
       return await query.ToListAsync();
     }
-    
-    // [HttpPost]
-    // public async Task<ActionResult<Economy>> Post([FromBody] Economy Economy)
-    // {
-    //   _db.Economy.Add(Economy);
-      
-    //   await _db.SaveChangesAsync();
-
-    //   return CreatedAtAction("Post", new { id = Economy.CountryId }, Economy);
-    // }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Economy>> GetEconomy(int id)
@@ -108,34 +75,5 @@ namespace FinanceAPI.Controllers
 
       return Economy;
     }
-
-    // [HttpDelete("{id}")]
-    // public async Task<IActionResult> DeleteCountry(int id)
-    // {
-    //   var CountryToDelete = await _db.Economy.FirstOrDefaultAsync(entry => entry.CountryId == id);
-    //   if (CountryToDelete == null)
-    //   {
-    //     return NotFound();
-    //   }
-
-    //   _db.Economy.Remove(CountryToDelete);
-    //   await _db.SaveChangesAsync();
-
-    //   return NoContent();
-    // }
-
-    // [HttpPut("{id}")]
-    // public async Task<IActionResult> PutCountry(int id, [FromBody]Economy Economy)
-    // {
-    //   if (id != Economy.CountryId)
-    //   {
-    //     return BadRequest();
-    //   }
-    
-    //   _db.Entry(Economy).State = EntityState.Modified;
-    //   await _db.SaveChangesAsync();
-
-    //   return NoContent();
-    // }
   }
 }

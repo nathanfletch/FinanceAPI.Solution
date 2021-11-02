@@ -30,7 +30,6 @@ namespace FinanceAPI.Models
       Map(m => m.GDP).Index(2);
       Map(m => m.UnemplRate).Index(3);
       Map(m => m.InflationRate).Index(4);
-      //Map(m => m.Json).TypeConverter<JsonConverter<Json>>();
     }
   }
 }
