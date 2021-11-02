@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FinanceAPI.Migrations
 {
-    public partial class Initial : Migration
+    public partial class EconomyInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
