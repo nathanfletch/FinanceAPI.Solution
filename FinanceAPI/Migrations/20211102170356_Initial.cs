@@ -8,6 +8,20 @@ namespace FinanceAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Complaints",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "varchar(255) CHARACTER SET utf8mb4", nullable: false),
+                    ConsumerComplaint = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    Company = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    State = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Complaints", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Countries",
                 columns: table => new
                 {
@@ -26,6 +40,9 @@ namespace FinanceAPI.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Complaints");
+
             migrationBuilder.DropTable(
                 name: "Countries");
         }
