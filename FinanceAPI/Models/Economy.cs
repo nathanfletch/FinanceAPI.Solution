@@ -25,11 +25,11 @@ namespace FinanceAPI.Models
       AutoMap(CultureInfo.InvariantCulture);
       //don't try to get Economyid from csv:
       Map(m => m.EconomyId).Ignore();
-      Map(m => m.Year);
-      Map(m => m.InterestRate).Default(0);
-      Map(m => m.GDP).Default(0);
-      Map(m => m.UnemplRate).Default(0);
-      Map(m => m.InflationRate).Default(0);
+      Map(m => m.Year).Index(0);
+      Map(m => m.InterestRate).Index(1);
+      Map(m => m.GDP).Index(2);
+      Map(m => m.UnemplRate).Index(3);
+      Map(m => m.InflationRate).Index(4);
       //Map(m => m.Json).TypeConverter<JsonConverter<Json>>();
     }
   }

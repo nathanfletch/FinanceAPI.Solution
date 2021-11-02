@@ -32,7 +32,8 @@ namespace FinanceAPI.Controllers
         return NoContent();
       }
 
-      using (var streamReader = new StreamReader("./Models/SeedData/allFactors.csv"))
+      //using (var streamReader = new StreamReader("./Models/SeedData/allFactors.csv"))
+      using (var streamReader = new StreamReader("./Models/SeedData/testAllFactors.csv"))
       {
         using (var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture))
         {
@@ -49,7 +50,7 @@ namespace FinanceAPI.Controllers
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Economy>>> GetEconomy(string year, int GDP, int unemployment, int inflation, string sortedBy)
+    public async Task<ActionResult<IEnumerable<Economy>>> GetEconomy(string year, double interest, int GDP, int unemployment, int inflation, string sortedBy)
     {
       var query = _db.Economy.AsQueryable();
 
@@ -57,34 +58,26 @@ namespace FinanceAPI.Controllers
       {
         query = query.Where(Economy => Economy.Year == Convert.ToInt32(year));
       }
-      if(GDP != 0)
-      {
-        query = query.Where(Economy => Economy.GDP == Convert.ToInt32(GDP));
-      }
-      // if(maxGDP != 0)
-      // {
-      //   query = query.Where(Economy => Economy.GDP <= maxGDP);
-      // }
-      // if(sortedBy != null)
+      if(sortedBy != null)
       {
         switch(sortedBy)
         {
+          case "Year":
+            query = query.OrderByDescending(economy => economy.Year);
+            break;
           case "GDP":
             query = query.OrderByDescending(economy => economy.GDP);
             break;
           case "interest":
             query = query.OrderByDescending(economy => economy.InterestRate);
-            break;
-          case "year":
-            query = query.OrderByDescending(economy => economy.Year);
-            break;
+            break;  
           case "unemployment":
             query = query.OrderByDescending(economy => economy.UnemplRate);
             break;
           case "inflation":
-          query = query.OrderByDescending(economy => economy.InflationRate);
-          break;
-          default: 
+            query = query.OrderByDescending(economy => economy.InflationRate);
+            break;
+            default: 
             break;
         }
       }
