@@ -39,7 +39,7 @@ namespace FinanceAPI.Controllers
         {
           csvReader.Context.RegisterClassMap<EconomyMap>();
           // csvReader.Configuration.MissingFieldFound = null;
-          var EconomyRecords = csvReader.GetRecords<Economy>().ToList(); 
+          var EconomyRecords = csvReader.GetRecords<Economy>().OrderBy(item => item.Year).ToList(); 
           
           _db.Economy.AddRange(EconomyRecords);
           _db.SaveChanges();
@@ -58,29 +58,31 @@ namespace FinanceAPI.Controllers
       {
         query = query.Where(Economy => Economy.Year == Convert.ToInt32(year));
       }
-      if(sortedBy != null)
-      {
-        switch(sortedBy)
-        {
-          case "Year":
-            query = query.OrderByDescending(economy => economy.Year);
-            break;
-          case "GDP":
-            query = query.OrderByDescending(economy => economy.GDP);
-            break;
-          case "interest":
-            query = query.OrderByDescending(economy => economy.InterestRate);
-            break;  
-          case "unemployment":
-            query = query.OrderByDescending(economy => economy.UnemplRate);
-            break;
-          case "inflation":
-            query = query.OrderByDescending(economy => economy.InflationRate);
-            break;
-            default: 
-            break;
-        }
-      }
+      //sort just in case it wasn't working
+      query = query.OrderBy(economy => economy.Year);
+
+      // if(sortedBy != null)
+      // {
+      //   switch(sortedBy)
+      //   {
+      //     case "GDP":
+      //       query = query.OrderByDescending(economy => economy.GDP);
+      //       break;
+      //     case "interest":
+      //       query = query.OrderByDescending(economy => economy.InterestRate);
+      //       break;  
+      //     case "unemployment":
+      //       query = query.OrderByDescending(economy => economy.UnemplRate);
+      //       break;
+      //     case "inflation":
+      //       query = query.OrderByDescending(economy => economy.InflationRate);
+      //       break;
+      //     case "year":
+      //       query = query.OrderByDescending(economy => economy.Year);
+      //     default: 
+      //       break;
+      //   }
+      //}
       return await query.ToListAsync();
     }
     

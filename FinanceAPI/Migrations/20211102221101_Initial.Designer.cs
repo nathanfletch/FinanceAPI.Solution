@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinanceAPI.Migrations
 {
     [DbContext(typeof(FinanceAPIContext))]
-    [Migration("20211102195414_Initial")]
+    [Migration("20211102221101_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
