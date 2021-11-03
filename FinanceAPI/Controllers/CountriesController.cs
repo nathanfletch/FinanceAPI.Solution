@@ -39,7 +39,7 @@ namespace FinanceAPI.Controllers
           csvReader.Context.RegisterClassMap<CountryMap>();
           // csvReader.Configuration.MissingFieldFound = null;
           var CountryRecords = csvReader.GetRecords<Country>().ToList();
-          
+          CountryRecords.ForEach(country => country.Region = country.Region.Trim());
           _db.Countries.AddRange(CountryRecords);
           _db.SaveChanges();
         }
@@ -55,15 +55,15 @@ namespace FinanceAPI.Controllers
 
       if(region != null)
       {
-        query = query.Where(Country => Country.Region == region);
+        query = query.Where(country => country.Region == region);
       }
       if(minGDP != 0)
       {
-        query = query.Where(Country => Country.GDP >= minGDP);
+        query = query.Where(country => country.GDP >= minGDP);
       }
       if(maxGDP != 0)
       {
-        query = query.Where(Country => Country.GDP <= maxGDP);
+        query = query.Where(country => country.GDP <= maxGDP);
       }
       if(sortedBy != null)
       {
@@ -72,72 +72,24 @@ namespace FinanceAPI.Controllers
           case "GDP":
             query = query.OrderByDescending(country => country.GDP);
             break;
-          case "name":
-            query = query.OrderByDescending(country => country.Name);
-            break;
-          case "region":
-            query = query.OrderByDescending(country => country.Region);
-            break;
-          case "population":
+          // case "region":
+          //   query = query.OrderByDescending(country => country.Region);
+          //   break;
+          case "POPULATION":
             query = query.OrderByDescending(country => country.Population);
             break;
           default: 
             break;
         }
       }
+      else
+      {
+        query = query.OrderBy(country => country.Name);
+      }
+
       return await query.ToListAsync();
     }
     
-    // [HttpPost]
-    // public async Task<ActionResult<Country>> Post([FromBody] Country Country)
-    // {
-    //   _db.Countries.Add(Country);
-      
-    //   await _db.SaveChangesAsync();
-
-    //   return CreatedAtAction("Post", new { id = Country.CountryId }, Country);
-    // }
-
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Country>> GetCountry(int id)
-    {
-      var Country = await _db.Countries.FindAsync(id);
-
-      if (Country == null)
-      {
-        return NotFound();
-      }
-
-      return Country;
-    }
-
-    // [HttpDelete("{id}")]
-    // public async Task<IActionResult> DeleteCountry(int id)
-    // {
-    //   var CountryToDelete = await _db.Countries.FirstOrDefaultAsync(entry => entry.CountryId == id);
-    //   if (CountryToDelete == null)
-    //   {
-    //     return NotFound();
-    //   }
-
-    //   _db.Countries.Remove(CountryToDelete);
-    //   await _db.SaveChangesAsync();
-
-    //   return NoContent();
-    // }
-
-    // [HttpPut("{id}")]
-    // public async Task<IActionResult> PutCountry(int id, [FromBody]Country Country)
-    // {
-    //   if (id != Country.CountryId)
-    //   {
-    //     return BadRequest();
-    //   }
     
-    //   _db.Entry(Country).State = EntityState.Modified;
-    //   await _db.SaveChangesAsync();
-
-    //   return NoContent();
-    // }
   }
 }
