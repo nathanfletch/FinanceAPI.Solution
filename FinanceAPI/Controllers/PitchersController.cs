@@ -37,7 +37,7 @@ namespace FinanceAPI.Controllers
         using (var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture))
         {
           csvReader.Context.RegisterClassMap<PitcherMap>();
-          var pitcherRecords = csvReader.GetRecords<Pitcher>().ToList();
+          var pitcherRecords = csvReader.GetRecords<Pitcher>().OrderBy(item => item.Pitches).ToList();
           
           _db.Pitchers.AddRange(pitcherRecords);
           _db.SaveChanges();
