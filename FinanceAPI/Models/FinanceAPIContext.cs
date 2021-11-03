@@ -7,10 +7,11 @@ namespace FinanceAPI.Models
     public FinanceAPIContext(DbContextOptions<FinanceAPIContext> options)
         : base(options)
     {
+
     }
 
     
-    
+    public DbSet<Patient> Patients { get; set; }
     public DbSet<Pitcher> Pitchers {get;set;}
     public DbSet<Economy> Economy { get; set; }
     public DbSet<Country> Countries { get; set; }
