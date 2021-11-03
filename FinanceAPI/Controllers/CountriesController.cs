@@ -32,8 +32,7 @@ namespace FinanceAPI.Controllers
         return NoContent();
       }
 
-      using (var streamReader = new StreamReader("./Models/SeedData/countries.csv"))
-      {
+        using (var streamReader = new StreamReader("./Models/SeedData/countries.csv"))      {
         using (var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture))
         {
           csvReader.Context.RegisterClassMap<CountryMap>();

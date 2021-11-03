@@ -2,14 +2,16 @@
 using FinanceAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FinanceAPI.Migrations
 {
     [DbContext(typeof(FinanceAPIContext))]
-    partial class FinanceAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20211103205710_InitialPitchers")]
+    partial class InitialPitchers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,35 +61,6 @@ namespace FinanceAPI.Migrations
                     b.ToTable("Countries");
                 });
 
-
-            modelBuilder.Entity("FinanceAPI.Models.Patient", b =>
-                {
-                    b.Property<int>("PatientId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Bmi")
-                        .HasColumnType("double");
-
-                    b.Property<double>("Charges")
-                        .HasColumnType("double");
-
-                    b.Property<int>("Children")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Sex")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("Smoker")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.HasKey("PatientId");
-
-                    b.ToTable("Patients");
-
             modelBuilder.Entity("FinanceAPI.Models.Economy", b =>
                 {
                     b.Property<int>("EconomyId")
@@ -132,7 +105,6 @@ namespace FinanceAPI.Migrations
                     b.HasKey("PitcherId");
 
                     b.ToTable("Pitchers");
-
                 });
 #pragma warning restore 612, 618
         }
