@@ -59,7 +59,6 @@ namespace FinanceAPI.Migrations
                     b.ToTable("Countries");
                 });
 
-
             modelBuilder.Entity("FinanceAPI.Models.Economy", b =>
                 {
                     b.Property<int>("EconomyId")
@@ -84,6 +83,7 @@ namespace FinanceAPI.Migrations
                     b.HasKey("EconomyId");
 
                     b.ToTable("Economy");
+                });
 
             modelBuilder.Entity("FinanceAPI.Models.Pitcher", b =>
                 {
@@ -103,7 +103,6 @@ namespace FinanceAPI.Migrations
                     b.HasKey("PitcherId");
 
                     b.ToTable("Pitchers");
-                    
                 });
 #pragma warning restore 612, 618
         }
