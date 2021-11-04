@@ -38,7 +38,7 @@ namespace FinanceAPI.Controllers
         {
           csvReader.Context.RegisterClassMap<EconomyMap>();
           // csvReader.Configuration.MissingFieldFound = null;
-          var EconomyRecords = csvReader.GetRecords<Economy>().ToList(); 
+          var EconomyRecords = csvReader.GetRecords<Economy>().OrderBy(item => item.Year).ToList(); 
           
           _db.Economy.AddRange(EconomyRecords);
           _db.SaveChanges();
@@ -49,7 +49,7 @@ namespace FinanceAPI.Controllers
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Economy>>> GetEconomy(string year, int GDP, int unemployment, int inflation, string sortedBy)
+    public async Task<ActionResult<IEnumerable<Economy>>> GetEconomy(string year, double interest, int GDP, int unemployment, int inflation, string sortedBy)
     {
       var query = _db.Economy.AsQueryable();
 
@@ -57,49 +57,11 @@ namespace FinanceAPI.Controllers
       {
         query = query.Where(Economy => Economy.Year == Convert.ToInt32(year));
       }
-      if(GDP != 0)
-      {
-        query = query.Where(Economy => Economy.GDP == Convert.ToInt32(GDP));
-      }
-      // if(maxGDP != 0)
-      // {
-      //   query = query.Where(Economy => Economy.GDP <= maxGDP);
-      // }
-      // if(sortedBy != null)
-      {
-        switch(sortedBy)
-        {
-          case "GDP":
-            query = query.OrderByDescending(economy => economy.GDP);
-            break;
-          case "interest":
-            query = query.OrderByDescending(economy => economy.InterestRate);
-            break;
-          case "year":
-            query = query.OrderByDescending(economy => economy.Year);
-            break;
-          case "unemployment":
-            query = query.OrderByDescending(economy => economy.UnemplRate);
-            break;
-          case "inflation":
-          query = query.OrderByDescending(economy => economy.InflationRate);
-          break;
-          default: 
-            break;
-        }
-      }
+      //sort just in case it wasn't working
+      query = query.OrderBy(economy => economy.Year);
+
       return await query.ToListAsync();
     }
-    
-    // [HttpPost]
-    // public async Task<ActionResult<Economy>> Post([FromBody] Economy Economy)
-    // {
-    //   _db.Economy.Add(Economy);
-      
-    //   await _db.SaveChangesAsync();
-
-    //   return CreatedAtAction("Post", new { id = Economy.CountryId }, Economy);
-    // }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Economy>> GetEconomy(int id)
@@ -113,34 +75,5 @@ namespace FinanceAPI.Controllers
 
       return Economy;
     }
-
-    // [HttpDelete("{id}")]
-    // public async Task<IActionResult> DeleteCountry(int id)
-    // {
-    //   var CountryToDelete = await _db.Economy.FirstOrDefaultAsync(entry => entry.CountryId == id);
-    //   if (CountryToDelete == null)
-    //   {
-    //     return NotFound();
-    //   }
-
-    //   _db.Economy.Remove(CountryToDelete);
-    //   await _db.SaveChangesAsync();
-
-    //   return NoContent();
-    // }
-
-    // [HttpPut("{id}")]
-    // public async Task<IActionResult> PutCountry(int id, [FromBody]Economy Economy)
-    // {
-    //   if (id != Economy.CountryId)
-    //   {
-    //     return BadRequest();
-    //   }
-    
-    //   _db.Entry(Economy).State = EntityState.Modified;
-    //   await _db.SaveChangesAsync();
-
-    //   return NoContent();
-    // }
   }
 }

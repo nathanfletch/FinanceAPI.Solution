@@ -2,5 +2,9 @@
 */obj/
 .vscode/
 *appsettings.json
+<<<<<<< HEAD
 .fake
 .ionide
+=======
+*/Migrations/
+>>>>>>> f116ac2279a8320dbb35893f8f963a11d2b63bff

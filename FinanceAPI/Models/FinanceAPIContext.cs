@@ -10,6 +10,7 @@ namespace FinanceAPI.Models
       
      }
     
+    public DbSet<Patient> Patients { get; set; }
     public DbSet<Pitcher> Pitchers {get;set;}
     public DbSet<Economy> Economy { get; set; }
     public DbSet<Country> Countries { get; set; }

@@ -21,7 +21,7 @@
 
 #### Setup
 * Clone this repository to your local machine
-* Navigate to the Template.Solution folder and create a file named "appsettings.json" 
+* Navigate to the FinanceAPI.Solution folder and create a file named "appsettings.json" 
 * Add the following code to the file:
   ```
   {
@@ -30,7 +30,7 @@
     }
   }
   ```
-* Navigate to the Template folder and run the following commands:
+* Navigate to the FinanceAPI folder and run the following commands:
 * `dotnet restore` to install the necessary dependencies
 * `dotnet build` to compile the project.
 * `dotnet tool install --global dotnet-ef`
