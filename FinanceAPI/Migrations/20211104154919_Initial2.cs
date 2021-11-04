@@ -3,30 +3,29 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FinanceAPI.Migrations
 {
-    public partial class pitcherClass : Migration
+    public partial class Initial2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Pitchers",
+                name: "NumberOfComplaints",
                 columns: table => new
                 {
-                    PitcherId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    Pitches = table.Column<int>(type: "int", nullable: false),
-                    Salary = table.Column<int>(type: "int", nullable: false)
+                    Company = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    NumberOfComplaints = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pitchers", x => x.PitcherId);
+                    table.PrimaryKey("PK_NumberOfComplaints", x => x.Id);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Pitchers");
+                name: "NumberOfComplaints");
         }
     }
 }
